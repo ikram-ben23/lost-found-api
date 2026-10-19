@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ReportType {
+  LOST
+  FOUND
+}
+
+enum ItemStatus {
+  OPEN
+  RECOVERED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  reports      ItemReport[]
+}
+
+model ItemReport {
+  id          String     @id @default(cuid())
+  type        ReportType
+  title       String
+  description String
+  category    String
+  location    String
+  itemDate    DateTime
+  imageUrl    String?
+  status      ItemStatus @default(OPEN)
+  recoveredAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  ownerId     String
+  owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@index([type, status])
+  @@index([category])
+  @@index([location])
+  @@index([itemDate])
+  @@index([ownerId])
+}
