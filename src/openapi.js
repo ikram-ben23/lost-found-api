@@ -11,7 +11,7 @@ export const openapiSpec = {
 
   servers: [
     {
-      url: "http://localhost:3000/api/v1"
+      url: "https://lost-found-api-1.onrender.com/api/v1"
     }
   ],
 
