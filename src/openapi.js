@@ -11,7 +11,7 @@ export const openapiSpec = {
 
   servers: [
     {
-      url: "https://lost-found-api-1.onrender.com/api/v1"
+      url: "https://lost-found-api-2.onrender.com/api/v1"
     }
   ],
 
